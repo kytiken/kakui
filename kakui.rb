@@ -26,7 +26,11 @@ class Kakui
       when "join"
         sentence = tweet.split(" ")
         join(sentence[2])
+      when "repry"
+        sentence = tweet.split(" ")
+        repry(sentence[2])
       end
+      
     end
   end
 
