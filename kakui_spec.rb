@@ -46,15 +46,15 @@ describe Kakui, "#descern" do
   end
 end
 
-describe Kakui, "#create_repry_text" do
+describe Kakui, "#create_reply_text" do
   it "Kakuiのメンバーにリプライの文面を作る" do
     kakui = Kakui.new
     kakui.join("hoge")
-    kakui.create_repry_text("ツイートの文面").should == "@hoge ツイートの文面"
+    kakui.create_reply_text("ツイートの文面").should == "@hoge ツイートの文面"
   end
 end
 
-describe Kakui, "#repry" do
+describe Kakui, "#reply" do
   it "Kakuiのメンバーにリプライを送る" do
     kakui = Kakui.new
     kakui.join("kytiken")

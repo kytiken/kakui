@@ -13,11 +13,11 @@ class Kakui
   end
 
   def destination
-    repry_string = ""
+    reply_string = ""
     @members.each do |member|
-      repry_string << "@" + member + " "
+      reply_string << "@" + member + " "
     end
-    return repry_string
+    return reply_string
   end
 
   def scan tweet
@@ -26,9 +26,9 @@ class Kakui
       when "join"
         sentence = tweet.split(" ")
         join(sentence[2])
-      when "repry"
+      when "reply"
         sentence = tweet.split(" ")
-        repry(sentence[2])
+        reply(sentence[2])
       end
       
     end
@@ -42,14 +42,14 @@ class Kakui
     return nil
   end
 
-  def create_repry_text text
-    repry_text = destination
-    repry_text << text
-    return repry_text
+  def create_reply_text text
+    reply_text = destination
+    reply_text << text
+    return reply_text
   end
 
-  def repry text
-    repry_text = create_repry_text(text)
-    Twitter.update(repry_text)
+  def reply text
+    reply_text = create_reply_text(text)
+    Twitter.update(reply_text)
   end
 end
