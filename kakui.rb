@@ -52,4 +52,8 @@ class Kakui
     reply_text = create_reply_text(text)
     Twitter.update(reply_text)
   end
+
+  def remove member
+    @members.delete(member)
+  end
 end

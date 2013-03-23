@@ -60,3 +60,14 @@ describe Kakui, "#reply" do
     kakui.join("kytiken")
   end
 end
+
+describe Kakui, "#remove" do
+  it "Kakuiのメンバーを削除する" do
+    kakui = Kakui.new
+    kakui.join('hoge')
+    kakui.join('fuga')
+    kakui.join('piyo')
+    kakui.remove('piyo')
+    kakui.members.should == ['hoge', 'fuga']
+  end
+end
