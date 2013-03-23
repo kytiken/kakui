@@ -3,6 +3,7 @@
 require './twitter_config.rb'
 
 class Kakui
+  attr_accessor :tweet
   attr_reader :members
   def initialize
     @members = []
@@ -21,16 +22,14 @@ class Kakui
   end
 
   def scan tweet
-    if descern(tweet)
-      case descern(tweet)
+    @tweet = tweet
+    if descern
+      case descern
       when "join"
-        sentence = tweet.split(" ")
         join(sentence[2])
       when "reply"
-        sentence = tweet.split(" ")
         reply(sentence[2])
       when "remove"
-        sentence = tweet.split(" ")
         remove(sentence[2])
       when "members"
         show_members
@@ -38,9 +37,12 @@ class Kakui
     end
   end
 
-  def descern tweet
-    if tweet =~ /@各位 /
-      sentence = tweet.split(" ")
+  def sentence
+    return @tweet.split(" ")
+  end
+
+  def descern
+    if @tweet =~ /@各位 /
       return sentence[1]
     end
     return nil

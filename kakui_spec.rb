@@ -46,12 +46,14 @@ end
 describe Kakui, "#descern" do
   it "Kakuiに対する命令かどうかを判別して@各位 joinが入っていたらjoinという文字列を返す" do
     kakui = Kakui.new
-    kakui.descern("@各位 join hoge").should == "join"
+    kakui.tweet = "@各位 join hoge"
+    kakui.descern.should == "join"
   end
 
   it "Kakuiに対する命令かどうかを判別して@各位が入っていなかったらfalseを返す" do
     kakui = Kakui.new
-    kakui.descern("hogefugapiyo").should == nil
+    kakui.tweet = "hogefugapiyo"
+    kakui.descern.should == nil
   end
 end
 
