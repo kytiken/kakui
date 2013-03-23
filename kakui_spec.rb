@@ -80,3 +80,13 @@ describe Kakui, "#remove" do
     kakui.members.should == ['hoge', 'fuga']
   end
 end
+
+describe Kakui, "#create_show_members_text" do
+  it "Kakuiのメンバーを一覧する" do
+    kakui = Kakui.new
+    kakui.join('hoge')
+    kakui.join('fuga')
+    kakui.join('piyo')
+    kakui.create_show_members_text.should == "members = [hoge, fuga, piyo]"
+  end
+end

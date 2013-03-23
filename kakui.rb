@@ -33,7 +33,6 @@ class Kakui
         sentence = tweet.split(" ")
         remove(sentence[2])
       end
-      
     end
   end
 
@@ -58,5 +57,10 @@ class Kakui
 
   def remove member
     @members.delete(member)
+  end
+
+  def create_show_members_text
+    members_text = @members.to_s.delete("\"")
+    return "members = #{members_text}"
   end
 end
