@@ -55,6 +55,28 @@ describe Kakui, "#descern" do
     kakui.tweet = "hogefugapiyo"
     kakui.descern.should == nil
   end
+
+  it "Kakuiに対する命令かどうか判別して@皆様 joinがはいっていたらjoinという文字列を返す" do
+    kakui = Kakui.new
+    Kakui::COMMANDS << /@皆様/
+    kakui.tweet = "@皆様 join hoge"
+    kakui.descern.should == "join"
+  end
+
+  it "Kakuiに対する命令かどうかを判別して@皆様が入っていなかったらfalseを返す" do
+    kakui = Kakui.new
+    kakui.tweet = "hogefugapiyo"
+    kakui.descern.should == nil
+  end
+
+  it "Kakuiに対する命令かどうか判別して@もえかしゅくらすた joinがはいっていたらjoinという文字列を返す" do
+    kakui = Kakui.new
+    Kakui::COMMANDS << /@もえかしゅくらすた/
+    kakui.tweet = "@もえかしゅくらすた join hoge"
+    kakui.descern.should == "join"
+  end
+
+
 end
 
 describe Kakui, "#create_reply_text" do
@@ -92,3 +114,4 @@ describe Kakui, "#create_show_members_text" do
     kakui.create_show_members_text.should == "members = [hoge, fuga, piyo]"
   end
 end
+

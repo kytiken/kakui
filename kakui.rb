@@ -3,7 +3,8 @@
 require './twitter_config.rb'
 
 class Kakui
-  COMMAND = /@各位/
+  DEFAULT_COMMAND = /@各位/
+  COMMANDS = [DEFAULT_COMMAND]
   attr_accessor :tweet
   attr_reader :members
   def initialize
@@ -43,8 +44,10 @@ class Kakui
   end
 
   def descern
-    if @tweet =~ COMMAND
-      return sentence[1]
+    COMMANDS.each do |command|
+      if @tweet =~ command
+        return sentence[1]
+      end
     end
     return nil
   end
