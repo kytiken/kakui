@@ -32,6 +32,8 @@ class Kakui
       when "remove"
         sentence = tweet.split(" ")
         remove(sentence[2])
+      when "members"
+        show_members
       end
     end
   end
@@ -62,5 +64,9 @@ class Kakui
   def create_show_members_text
     members_text = @members.to_s.delete("\"")
     return "members = #{members_text}"
+  end
+
+  def show_members
+    Twitter.update(create_show_members_text)
   end
 end
