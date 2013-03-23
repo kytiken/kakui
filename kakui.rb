@@ -29,6 +29,9 @@ class Kakui
       when "reply"
         sentence = tweet.split(" ")
         reply(sentence[2])
+      when "remove"
+        sentence = tweet.split(" ")
+        remove(sentence[2])
       end
       
     end

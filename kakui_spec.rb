@@ -32,6 +32,15 @@ describe Kakui, "#scan" do
     kakui.scan("@各位 join hoge")
     kakui.members.should == ["hoge"]
   end
+
+  it "ツイートに@各位 remove命令が入っていたらmemberを削除する" do
+    kakui = Kakui.new
+    kakui.join('hoge')
+    kakui.join('fuga')
+    kakui.join('piyo')
+    kakui.scan('@各位 remove piyo')
+    kakui.members.should == ['hoge', 'fuga']
+  end
 end
 
 describe Kakui, "#descern" do
@@ -49,7 +58,7 @@ end
 describe Kakui, "#create_reply_text" do
   it "Kakuiのメンバーにリプライの文面を作る" do
     kakui = Kakui.new
-    kakui.join("hoge")
+    kakui.join('hoge')
     kakui.create_reply_text("ツイートの文面").should == "@hoge ツイートの文面"
   end
 end
