@@ -2,6 +2,25 @@
 
 require './kakui.rb'
 
+describe Kakui, "#store_group" do
+  it "あたらしくグループを登録する" do
+    kakui = Kakui.new
+    keyword = "皆様"
+    kakui.store_group(keyword)
+    kakui.groups[keyword].name.should == keyword
+    kakui.groups[keyword].identifier.should == "@"+keyword
+  end
+end
+
+describe Kakui, "#keywords" do
+  it "各位に登録されているキーワードの一覧を取得する" do
+    kakui = Kakui.new
+    keyword = "皆様"
+    kakui.store_group(keyword)
+    kakui.keywords.should == ['各位','皆様']
+  end
+end
+
 describe Kakui, "#join" do
   it "各位のメンバーがmemberに保存できる" do
     kakui = Kakui.new
@@ -15,7 +34,17 @@ describe Kakui, "#join" do
     kakui.join("fuga")
     kakui.members.should == ["hoge", "fuga"]
   end
+
+  it "＠皆様のグループにメンバーを登録する" do
+    kakui = Kakui.new
+    keyword = "皆様"
+    kakui.store_group(keyword)
+    kakui.groups[keyword].join("hoge")
+    kakui.groups[keyword].join("fuga")
+    kakui.groups[keyword].members.should == ["hoge", "fuga"]
+  end
 end
+
 
 describe Kakui, "#destination" do
   it "各位にリプライを飛ばす宛先の文字列が返される" do
@@ -58,7 +87,9 @@ describe Kakui, "#descern" do
 
   it "Kakuiに対する命令かどうか判別して@皆様 joinがはいっていたらjoinという文字列を返す" do
     kakui = Kakui.new
-    Kakui::COMMANDS << /@皆様/
+    keyword = '皆様'
+    minasama = Group.new(keyword)
+    kakui.groups.store(keyword, minasama)
     kakui.tweet = "@皆様 join hoge"
     kakui.descern.should == "join"
   end
@@ -71,7 +102,9 @@ describe Kakui, "#descern" do
 
   it "Kakuiに対する命令かどうか判別して@もえかしゅくらすた joinがはいっていたらjoinという文字列を返す" do
     kakui = Kakui.new
-    Kakui::COMMANDS << /@もえかしゅくらすた/
+    keyword = 'もえかしゅくらすた'
+    moekashu = Group.new(keyword)
+    kakui.groups.store(keyword, moekashu)
     kakui.tweet = "@もえかしゅくらすた join hoge"
     kakui.descern.should == "join"
   end
